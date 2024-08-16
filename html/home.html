@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Sweat and Beers Draft</title>
+    <style>
+        
+table {
+    max-width: 800px;
+    width: 90%;
+    margin: 0.25rem 0.25rem;
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+td,
+th,
+tr {
+    text-align: left;
+    padding: 5px;
+}
+
+tr:nth-child(even) {
+    background-color: grey;
+    color: white;
+}
+
+
+/* Apply a border to the right of all but the last column */
+table th:not(:last-child),
+table td:not(:last-child) {
+    border-right: 1px solid black;
+}
+
+/* Apply a border to the bottom of all but the last row */
+table>thead>tr:not(:last-child)>th,
+table>thead>tr:not(:last-child)>td,
+table>tbody>tr:not(:last-child)>th,
+table>tbody>tr:not(:last-child)>td,
+table>tfoot>tr:not(:last-child)>th,
+table>tfoot>tr:not(:last-child)>td,
+table>tr:not(:last-child)>td,
+table>tr:not(:last-child)>th,
+table>thead:not(:last-child),
+table>tbody:not(:last-child),
+table>tfoot:not(:last-child) {
+    border-bottom: 1px solid black;
+}
+    </style>
+    <script>
+        window.onload = function () {
+
+            fetch('https://1be3-209-137-205-181.ngrok-free.app/getResults')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    for(let i=0; i < data.length;i++){
+                        let row = document.createElement('tr');
+                        let pick = document.createElement('td');
+                        let position = document.createElement('td');
+                        let name = document.createElement('td');
+                        let draftee = document.createElement('td');
+                        let team = document.createElement('td');
+                        pick.innerText = data[i].pick;
+                        position.innerText = data[i].position;
+                        name.innerText = data[i].name;
+                        draftee.innerText = data[i].draftee;
+                        team.innerText = data[i].team;
+                        row.appendChild(pick);
+                        row.appendChild(position);
+                        row.appendChild(name);
+                        row.appendChild(draftee);
+                        row.appendChild(team);
+                        
+                        var log = document.getElementById("table");
+                        log.appendChild(row);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Blood Sweat and Beers Draft</h1>
+
+    <table style="width: 150px">
+        <tr>
+            <th>Draft Order</th>
+        </tr>
+        <tr>
+            <td>Drake Sturgeon</td>
+        </tr>
+        <tr>
+            <td>Cole Koerner</td>
+        </tr>
+        <tr>
+            <td>Boone Roberson</td>
+        </tr>
+        <tr>
+            <td>Griffin Davis</td>
+        </tr>
+        <tr>
+            <td>Cole Sturgeon</td>
+        </tr>
+        <tr>
+            <td>Zach Roberson</td>
+        </tr>
+        <tr>
+            <td>Austin Wondra</td>
+        </tr>
+        <tr>
+            <td>Garret Davis</td>
+        </tr>
+        
+    </table>
+
+    <table id="table">
+        <tr>
+            <th>Pick</th>
+            <th>Position</th>
+            <th>Name</th>
+            <th>Draftee</th>
+            <th>Team</th>
+        </tr>
+        
+    </table>
+</body>
+</html>
